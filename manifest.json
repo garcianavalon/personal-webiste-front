@@ -1,0 +1,7 @@
+{
+  "name": "garcia-navalon",
+  "short_name": "garcia-navalon",
+  "description": "My personal website",
+  "start_url": "/",
+  "display": "standalone"
+}
