@@ -1,6 +1,6 @@
 # \<garcia-navalon\>
 
-My personal website
+My personal website :D
 
 ## Install the Polymer-CLI
 
