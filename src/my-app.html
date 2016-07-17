@@ -35,84 +35,100 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         --app-primary-color: #4285f4;
         --app-secondary-color: black;
+        --app-titles-color: #fff;
       }
 
       app-header {
         background-color: var(--app-primary-color);
-        color: #fff;
+        color: var(--app-titles-color);
       }
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
-      }
-
-      .drawer-list {
-        margin: 0 20px;
-      }
-      .drawer-list a {
-        display: block;
-        padding: 0 16px;
-        line-height: 40px;
-        text-decoration: none;
-        color: var(--app-secondary-color);
-      }
-      .drawer-list a.iron-selected {
-        color: black;
-        font-weight: bold;
-      }
-      .drawer-list a.subroute {
-        padding-left: 32px;
       }
 
       [hidden] {
         display: none !important;
       }
 
+      .link {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        color: var(--app-titles-color);
+        text-decoration: none; /* no underline */
+      }
+
     </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      tail="{{subroute}}">
+    </app-route>
+    <app-route
+      route="{{subroute}}"
+      pattern="/:id"
+      data="{{subrouteData}}">
+    </app-route>
 
     <app-drawer-layout force-narrow>
 
-      <!-- Drawer content -->
-      <app-drawer id="drawer">
+        <!-- Drawer content -->
+        <app-drawer id="drawer">
 
-      <!-- an empty toolbar in the drawer looks like a
-           continuation of the main toolbar. It's optional. -->
-      <app-toolbar></app-toolbar>
+        <!-- an empty toolbar in the drawer looks like a
+             continuation of the main toolbar. It's optional. -->
+        <app-toolbar></app-toolbar>
 
-      <!-- Nav on mobile: side nav menu -->
-      <paper-menu selected="{{selected}}" attr-for-selected="name">
-        <template is="dom-repeat" items="{{items}}">
-          <paper-item name="{{item}}">{{item}}</paper-item>
-        </template>
-      </paper-menu>
+        <!-- Nav on mobile: side nav menu -->
+        <paper-menu selected="[[page]]" attr-for-selected="name" role="navigation">
+          <paper-item><a name="view1" href="/view1">view1</a></paper-item>
+          <paper-item><a name="view2" href="/view2">view2</a></paper-item>
+          <paper-item><a name="view3" href="/view3">view3</a></paper-item>
+        </paper-menu>
 
-    </app-drawer>
+      </app-drawer>
 
       <!-- Main content -->
       <app-header-layout>
-      <app-header class="main-header">
+        <app-header class="main-header">
 
-        <app-toolbar>
-          <!-- drawer toggle button -->
-          <paper-icon-button 
-            class="menu-button" 
-            icon="menu" 
-            drawer-toggle 
-            hidden$="{{wideLayout}}">
-          </paper-icon-button>
-        </app-toolbar>
+          <app-toolbar>
+            <!-- drawer toggle button -->
+            <paper-icon-button 
+              class="menu-button" 
+              icon="menu" 
+              drawer-toggle 
+              hidden$="{{wideLayout}}">
+            </paper-icon-button>
+          </app-toolbar>
 
-        <app-toolbar class="tabs-bar" hidden$="{{!wideLayout}}">
+          <app-toolbar class="tabs-bar" hidden$="{{!wideLayout}}">
 
-          <!-- Nav on desktop: tabs -->
-          <paper-tabs selected="{{selected}}" attr-for-selected="name" bottom-item>
-            <template is="dom-repeat" items="{{items}}">
-              <paper-tab name="{{item}}">{{item}}</paper-tab>
-            </template>
-          </paper-tabs>
-        </app-toolbar>
+            <!-- Nav on desktop: tabs -->
+            <paper-tabs selected="[[page]]" attr-for-selected="name" bottom-item>
+              <paper-tab link name="view1">
+                <a href="/view1" class="link" tabindex="-1">view1</a>
+              </paper-tab>
+              <paper-tab link name="view2">
+                <a href="/view2" class="link" tabindex="-1">view2</a>
+              </paper-tab>
+              <paper-tab link name="view3">
+                <a href="/view3" class="link" tabindex="-1">view3</a>
+              </paper-tab>
+            </paper-tabs>
+          </app-toolbar>
 
-      </app-header>
-    </app-header-layout>
+        </app-header>
+
+        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+          <my-view1 name="view1"></my-view1>
+          <my-view2 name="view2"></my-view2>
+          <my-view3 name="view3"></my-view3>
+        </iron-pages>
+
+      </app-header-layout>
 
     </app-drawer-layout>
 
@@ -131,19 +147,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         page: {
           type: String,
           reflectToAttribute: true,
-          observer: '_pageChanged'
-        },
-
-        selected: {
-          type: String,
-          value: 'Item One'
-        },
-
-        items: {
-          type: Array,
-          value: function() {
-            return ['Item One', 'Item Two', 'Item Three', 'Item Four', 'Item Five'];
-          },
+          observer: '_pageChanged',
         },
 
         wideLayout: {
@@ -160,12 +164,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _routePageChanged: function(page) {
         this.page = page || 'view1';
+        console.log('route page changed to %s', this.page);
       },
 
       _pageChanged: function(page) {
+        console.log('page changed to %s', page);
         // load page import on demand.
         this.importHref(
           this.resolveUrl('my-' + page + '.html'), null, null, true);
+
+        // close the drawer
+        this.$.drawer.opened = false;
       },
 
       _layoutChanged: function(wide) {
