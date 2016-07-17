@@ -23,9 +23,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
-<link rel="import" href="my-icons.html">
+<link rel="import" href="garcianavalon-icons.html">
 
-<dom-module id="my-app">
+<dom-module id="garcianavalon-app">
 
   <template>
 
@@ -83,9 +83,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Nav on mobile: side nav menu -->
         <paper-menu selected="[[page]]" attr-for-selected="name" role="navigation">
-          <paper-item><a name="view1" href="/view1">view1</a></paper-item>
-          <paper-item><a name="view2" href="/view2">view2</a></paper-item>
-          <paper-item><a name="view3" href="/view3">view3</a></paper-item>
+          <paper-item><a name="home" href="/home">home</a></paper-item>
+          <paper-item><a name="blog" href="/blog">blog</a></paper-item>
+          <paper-item><a name="about" href="/about">about</a></paper-item>
         </paper-menu>
 
       </app-drawer>
@@ -108,14 +108,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <!-- Nav on desktop: tabs -->
             <paper-tabs selected="[[page]]" attr-for-selected="name" bottom-item>
-              <paper-tab link name="view1">
-                <a href="/view1" class="link" tabindex="-1">view1</a>
+              <paper-tab link name="home">
+                <a href="/home" class="link" tabindex="-1">home</a>
               </paper-tab>
-              <paper-tab link name="view2">
-                <a href="/view2" class="link" tabindex="-1">view2</a>
+              <paper-tab link name="blog">
+                <a href="/blog" class="link" tabindex="-1">blog</a>
               </paper-tab>
-              <paper-tab link name="view3">
-                <a href="/view3" class="link" tabindex="-1">view3</a>
+              <paper-tab link name="about">
+                <a href="/about" class="link" tabindex="-1">about</a>
               </paper-tab>
             </paper-tabs>
           </app-toolbar>
@@ -123,9 +123,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </app-header>
 
         <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
+          <garcianavalon-home name="home"></garcianavalon-home>
+          <garcianavalon-blog name="blog"></garcianavalon-blog>
+          <garcianavalon-about name="about"></garcianavalon-about>
         </iron-pages>
 
       </app-header-layout>
@@ -140,7 +140,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
 
-      is: 'my-app',
+      is: 'garcianavalon-app',
 
       properties: {
 
@@ -163,7 +163,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ],
 
       _routePageChanged: function(page) {
-        this.page = page || 'view1';
+        this.page = page || 'home';
         console.log('route page changed to %s', this.page);
       },
 
@@ -171,7 +171,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         console.log('page changed to %s', page);
         // load page import on demand.
         this.importHref(
-          this.resolveUrl('my-' + page + '.html'), null, null, true);
+          this.resolveUrl('garcianavalon-' + page + '.html'), null, null, true);
 
         // close the drawer
         this.$.drawer.opened = false;
