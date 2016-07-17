@@ -39,11 +39,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       app-header {
-        background-color: var(--app-primary-color);
+        background-color: var(--app-secondary-color);
         color: var(--app-titles-color);
+        background-image: url(/images/cover.jpg);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        background-position: 0% 18%;
       }
+      
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
+      }
+
+      paper-tab {
+        text-transform: uppercase;
+        background: rgba(0, 0, 0, 0.4); 
       }
 
       [hidden] {
