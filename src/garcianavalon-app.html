@@ -46,14 +46,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-size: 100%;
         background-position: 0% 18%;
       }
-      
+
       app-header paper-icon-button {
         --paper-icon-button-ink-color: white;
       }
 
       paper-tab {
         text-transform: uppercase;
-        background: rgba(0, 0, 0, 0.4); 
+        background: rgba(0, 0, 0, 0.6); 
       }
 
       [hidden] {
@@ -102,9 +102,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- Main content -->
       <app-header-layout>
-        <app-header class="main-header">
+        <app-header reveals condenses>
 
-          <app-toolbar>
+          <app-toolbar sticky$="{{wideLayout}}">
             <!-- drawer toggle button -->
             <paper-icon-button 
               class="menu-button" 
@@ -114,7 +114,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </paper-icon-button>
           </app-toolbar>
 
-          <app-toolbar class="tabs-bar" hidden$="{{!wideLayout}}">
+          <app-toolbar></app-toolbar>
+
+          <app-toolbar sticky$="{{wideLayout}}" hidden$="{{!wideLayout}}">
 
             <!-- Nav on desktop: tabs -->
             <paper-tabs selected="[[page]]" attr-for-selected="name" bottom-item>
