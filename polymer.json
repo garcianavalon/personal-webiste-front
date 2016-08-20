@@ -2,8 +2,9 @@
   "entrypoint": "index.html",
   "shell": "src/garcianavalon-app.html",
   "fragments": [
-    "src/garcianavalon-home.html",
+    "src/garcianavalon-projects.html",
     "src/garcianavalon-blog.html",
-    "src/garcianavalon-about.html"
+    "src/garcianavalon-about.html",
+    "src/garcianavalon-home.html",
   ]
 }

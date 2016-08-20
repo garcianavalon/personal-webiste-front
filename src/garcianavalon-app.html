@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
+
 <link rel="import" href="garcianavalon-icons.html">
 
 <dom-module id="garcianavalon-app">
@@ -33,27 +34,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       :host {
         display: block;
-        --app-primary-color: #4285f4;
-        --app-secondary-color: black;
-        --app-titles-color: #fff;
+        position: relative;
+        padding-bottom: 64px;
+        min-height: 100vh;
+        --app-primary-color: #000;
+        --app-secondary-color: #b3b3b3;
+        --app-titles-color: #000;
+        --app-background-color: #fff;
       }
 
       app-header {
-        background-color: var(--app-secondary-color);
+        background-color: var(--app-background-color);
         color: var(--app-titles-color);
-        background-image: url(/images/cover.jpg);
-        background-repeat: no-repeat;
-        background-size: 100%;
-        background-position: 0% 18%;
       }
 
-      app-header paper-icon-button {
-        --paper-icon-button-ink-color: white;
+      .left-bar-item {
+        width: 40px;
+      }
+
+      .logo {
+        text-align: center;
+      }
+
+      .logo a {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--app-primary-color);
+        text-decoration: none;
+        /* required for IE 11, so this <a> can receive pointer events */
+        display: inline-block;
+        pointer-events: auto;
+      }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: var(--app-secondary-color);
       }
 
       paper-tab {
         text-transform: uppercase;
-        background: rgba(0, 0, 0, 0.6); 
       }
 
       [hidden] {
@@ -84,16 +102,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <app-drawer-layout force-narrow>
 
-        <!-- Drawer content -->
-        <app-drawer id="drawer">
+      <!-- Drawer content -->
+      <app-drawer id="drawer">
 
         <!-- an empty toolbar in the drawer looks like a
              continuation of the main toolbar. It's optional. -->
-        <app-toolbar></app-toolbar>
+        <app-toolbar>
+
+        </app-toolbar>
 
         <!-- Nav on mobile: side nav menu -->
         <paper-menu selected="[[page]]" attr-for-selected="name" role="navigation">
-          <paper-item><a name="home" href="/home">home</a></paper-item>
+          <paper-item><a name="projects" href="/projects">projects</a></paper-item>
           <paper-item><a name="blog" href="/blog">blog</a></paper-item>
           <paper-item><a name="about" href="/about">about</a></paper-item>
         </paper-menu>
@@ -105,23 +125,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header reveals condenses>
 
           <app-toolbar sticky$="{{wideLayout}}">
-            <!-- drawer toggle button -->
-            <paper-icon-button 
-              class="menu-button" 
-              icon="menu" 
-              drawer-toggle 
-              hidden$="{{wideLayout}}">
-            </paper-icon-button>
-          </app-toolbar>
 
-          <app-toolbar></app-toolbar>
+            <div class="left-bar-item">
+              <paper-icon-button 
+                class="menu-button" 
+                icon="menu" 
+                drawer-toggle 
+                hidden$="{{wideLayout}}">
+              </paper-icon-button>
+            </div>
+            
+            <div class="logo" main-title>
+              <a href="/" aria-label="garcianavalon Home">@garcianavalon</a>
+            </div>
+
+          </app-toolbar>
 
           <app-toolbar sticky$="{{wideLayout}}" hidden$="{{!wideLayout}}">
 
             <!-- Nav on desktop: tabs -->
-            <paper-tabs selected="[[page]]" attr-for-selected="name" bottom-item>
-              <paper-tab link name="home">
-                <a href="/home" class="link" tabindex="-1">home</a>
+            <paper-tabs selected="[[page]]" attr-for-selected="name" bottom-item noink>
+              <paper-tab link name="projects">
+                <a href="/projects" class="link" tabindex="-1">projects</a>
               </paper-tab>
               <paper-tab link name="blog">
                 <a href="/blog" class="link" tabindex="-1">blog</a>
@@ -136,6 +161,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
           <garcianavalon-home name="home"></garcianavalon-home>
+          <garcianavalon-projects name="projects"></garcianavalon-projects>
           <garcianavalon-blog name="blog"></garcianavalon-blog>
           <garcianavalon-about name="about"></garcianavalon-about>
         </iron-pages>

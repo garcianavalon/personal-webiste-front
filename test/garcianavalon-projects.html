@@ -12,33 +12,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html>
 <head>
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <title>kart-home</title>
+  <title>garcianavalon-projects</title>
 
   <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../bower_components/web-component-tester/browser.js"></script>
 
   <!-- Import the element to test -->
-  <link rel="import" href="../src/garcianavalon-home.html">
+  <link rel="import" href="../src/garcianavalon-projects.html">
 
 </head>
 <body>
 
   <test-fixture id="basic">
     <template>
-       <garcianavalon-home></garcianavalon-home>
+       <garcianavalon-projects></garcianavalon-projects>
     </template>
   </test-fixture>
 
   <script>
-    suite('garcianavalon-home tests', function() {
-      var home;
+    suite('garcianavalon-projects tests', function() {
+      var projects;
 
       setup(function() {
-        home = fixture('basic');
+        projects = fixture('basic');
       });
 
       test('Number in circle should be 1', function() {
-        var circle = Polymer.dom(home.root).querySelector('.circle');
+        var circle = Polymer.dom(projects.root).querySelector('.circle');
         assert.equal(circle.textContent, '1');
       })
     });
