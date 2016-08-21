@@ -9,7 +9,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="garcianavalon-post.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="garcianavalon-blog-teaser.html">
 
 <dom-module id="garcianavalon-blog">
 
@@ -22,9 +24,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <template is="dom-repeat" items="{{posts}}">
-      <garcianavalon-post></garcianavalon-post>
-    </template>
+    <app-route
+      route="[[route]]"
+      pattern="/:slug"
+      data="{{routeData}}"
+      tail="{{subroute}}"
+      active="{{isActive}}">
+    </app-route>
+
+    <iron-pages role="main" selected="[[slug]]" attr-for-selected="name">
+      <div name="list">
+        <template is="dom-repeat" items="{{posts}}">
+          <a href$="[[_getItemHref(item)]]">
+            <garcianavalon-blog-teaser post=[[item]]></garcianavalon-blog-teaser>
+          </a>
+        </template>
+      </div>
+      <div name="a-sample-post">THIS IS THE BLOG POST</div>
+    </iron-pages>
 
 
   </template>
@@ -37,9 +54,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         posts: {
           type: Array,
-          value: ['A sample post', 'Another sample', 'A potato']
-        }
-      }
+          value: [{
+            id: 1,
+            title: 'A sample post',
+            teaser: 'You should read this post!',
+            slug: 'a-sample-post',
+            publicationDate: new Date(),
+          }]
+        },
+
+        route: Object,
+
+        slug: {
+          type: String,
+          reflectToAttribute: true,
+          //observer: '_pageChanged',
+        },
+      },
+
+      observers: [
+        '_routeSlugChanged(routeData.slug)',
+        '_routeInactive(isActive)',
+      ],
+
+      _routeSlugChanged: function(slug) {
+        this.slug = slug || 'list';
+        console.log('blog route slug changed to %s', this.slug);
+      },
+
+      _routeInactive: function(isActive) {
+        // NOTE(garcianavalon) when no slug route turns inactive but doesn't
+        // change routeData (I guess a perfomance issue) so we have to reset
+        // our slug variable ourselves
+        this.slug = isActive ? this.slug : 'list';
+      },
+
+      _getItemHref: function(item) {
+        // By returning null when `itemId` is undefined, the href attribute won't be set and
+        // the link will be disabled.
+        return item.slug ? [this.route.prefix, item.slug].join('/') : null;
+      },
 
     });
 
