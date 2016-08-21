@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 
 <link rel="import" href="garcianavalon-blog-teaser.html">
+<link rel="import" href="garcianavalon-blog-detail.html">
 
 <dom-module id="garcianavalon-blog">
 
@@ -40,9 +41,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </a>
         </template>
       </div>
-      <div name="a-sample-post">THIS IS THE BLOG POST</div>
+      <template is="dom-repeat" items="{{posts}}">
+        <garcianavalon-blog-detail name=[[item.slug]] post=[[item]]></garcianavalon-blog-detail>
+      </template>
     </iron-pages>
-
 
   </template>
 
@@ -59,6 +61,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             title: 'A sample post',
             teaser: 'You should read this post!',
             slug: 'a-sample-post',
+            content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
+            publicationDate: new Date(),
+          },
+          {
+            id: 2,
+            title: 'Another post',
+            teaser: 'This one is cool too!',
+            slug: 'another-post',
+            content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
             publicationDate: new Date(),
           }]
         },

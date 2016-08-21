@@ -23,17 +23,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <paper-card heading="Emmental">
-      <div class="card-content">
-        Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-        Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-        Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-      </div>
-      <div class="card-actions">
-        <paper-button>Share</paper-button>
-        <paper-button>Explore!</paper-button>
-      </div>
-    </paper-card>
+    <h5 class="">{{ post.publicationDate }}</h5>
+    <h3 class="">{{ post.title }}</h3>
+    <p class="">{{ post.content }}</p>
 
   </template>
 
@@ -41,7 +33,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
 
-      is: 'garcianavalon-blog-detail'
+      is: 'garcianavalon-blog-detail',
+
+      properties: {
+        post: {
+          type: Object,
+          notify: true,
+        }
+      },
 
     });
 
