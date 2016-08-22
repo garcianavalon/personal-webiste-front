@@ -23,6 +23,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         padding: 10px;
       }
+
+      a,
+      a:link,
+      a:active,
+      a:visited,
+      a:hover {
+        color: var(--app-primary-color);
+        text-decoration: none;
+      }
+
     </style>
 
     <app-route
@@ -37,7 +47,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div name="list">
         <template is="dom-repeat" items="{{posts}}">
           <a href$="[[_getItemHref(item)]]">
-            <garcianavalon-blog-teaser post=[[item]]></garcianavalon-blog-teaser>
+            <garcianavalon-blog-teaser 
+              post=[[item]]
+              wide-layout="[[wideLayout]]">
+            </garcianavalon-blog-teaser>
           </a>
         </template>
       </div>
@@ -58,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Array,
           value: [{
             id: 1,
-            title: 'A sample post',
+            title: 'A sample post with a title long enough to see a line break',
             teaser: 'You should read this post!',
             slug: 'a-sample-post',
             content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
@@ -75,6 +88,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
 
         route: Object,
+
+        wideLayout: Boolean,
 
         slug: {
           type: String,

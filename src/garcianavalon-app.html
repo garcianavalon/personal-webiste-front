@@ -34,12 +34,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       :host {
         display: block;
-        position: relative;
-        padding-bottom: 64px;
-        min-height: 100vh;
-        --app-primary-color: #000;
-        --app-secondary-color: red;
-        --app-titles-color: #000;
+        --app-primary-color: #333;
+        --app-secondary-color: #e32b46;
+        --app-titles-color: #333;
+        --app-subtitles-color: #999;
         --app-background-color: #fff;
         background-color: var(--app-background-color);
       }
@@ -86,6 +84,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-decoration: none; /* no underline */
       }
 
+      iron-pages {
+        padding-left: 22vw;
+        padding-right: 22vw;
+        padding-top: 1vh;
+      }
+
+      [no-padding] {
+        padding-left: 5vw !important;
+        padding-right: 5vw !important;
+      }
+
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -109,8 +118,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Nav on mobile: side nav menu -->
         <paper-menu selected="[[page]]" attr-for-selected="name" role="navigation">
-          <paper-item><a name="projects" href="/projects">projects</a></paper-item>
           <paper-item><a name="blog" href="/blog">blog</a></paper-item>
+          <paper-item><a name="projects" href="/projects">projects</a></paper-item>
           <paper-item><a name="about" href="/about">about</a></paper-item>
         </paper-menu>
 
@@ -141,11 +150,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <!-- Nav on desktop: tabs -->
             <paper-tabs selected="[[page]]" attr-for-selected="name" bottom-item noink>
-              <paper-tab link name="projects">
-                <a href="/projects" class="link" tabindex="-1">projects</a>
-              </paper-tab>
               <paper-tab link name="blog">
                 <a href="/blog" class="link" tabindex="-1">blog</a>
+              </paper-tab>              
+              <paper-tab link name="projects">
+                <a href="/projects" class="link" tabindex="-1">projects</a>
               </paper-tab>
               <paper-tab link name="about">
                 <a href="/about" class="link" tabindex="-1">about</a>
@@ -155,10 +164,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         </app-header>
 
-        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
+        <iron-pages 
+          role="main" 
+          selected="[[page]]" 
+          attr-for-selected="name" 
+          no-padding$="{{!wideLayout}}">
           <garcianavalon-home name="home"></garcianavalon-home>
           <garcianavalon-projects name="projects"></garcianavalon-projects>
-          <garcianavalon-blog name="blog" route="[[subroute]]"></garcianavalon-blog>
+          <garcianavalon-blog 
+            name="blog" 
+            route="[[subroute]]" 
+            wide-layout="[[wideLayout]]">
+          </garcianavalon-blog>
           <garcianavalon-about name="about"></garcianavalon-about>
         </iron-pages>
 
