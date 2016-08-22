@@ -55,7 +55,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
       </div>
       <template is="dom-repeat" items="{{posts}}">
-        <garcianavalon-blog-detail name=[[item.slug]] post=[[item]]></garcianavalon-blog-detail>
+        <garcianavalon-blog-detail 
+          name=[[item.slug]] 
+          post=[[item]]
+          wide-layout="[[wideLayout]]">
+        </garcianavalon-blog-detail>
       </template>
     </iron-pages>
 

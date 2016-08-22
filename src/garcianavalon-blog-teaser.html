@@ -9,39 +9,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/moment-element/moment-element.html">
+
+<link rel="import" href="./garcianavalon-blog-styles.html">
 
 <dom-module id="garcianavalon-blog-teaser">
 
   <template>
 
+    <style include="garcianavalon-blog-styles"></style>
     <style>
       :host {
         display: block;
         padding: 10px;
       }
-
-      .subtitle {
-        color: var(--app-subtitles-color);
-        font-size: var(--subtitle-font-size);
-        margin-bottom: 0px;
-        font-weight: normal;
-      }
-
-      .title {
-        color: var(--app-secondary-color);
-        font-size: var(--title-font-size);
-        font-weight: normal;
-        margin-top: 5px;
-      }
-
-      .text {
-        color: var(--app-primary-color);
-        font-size: var(--text-font-size);
-        font-weight: normal;
-      }
     </style>
 
-    <h5 class="subtitle">{{ post.publicationDate }}</h5>
+    <h5 class="subtitle">
+      Published
+      <moment-element 
+        datetime="{{ post.publicationDate }}"
+        output-format="MMM DD[,] YYYY">
+      </moment-element>
+    </h5>
     <h3 class="title" >{{ post.title }}</h3>
     <p class="text">{{ post.teaser }}</p>
 
@@ -63,7 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           value: false,
           observer: '_layoutChanged',
-        }
+        },
       },
 
       _layoutChanged: function(wide) {
