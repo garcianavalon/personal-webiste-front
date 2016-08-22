@@ -12,6 +12,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 
+<link rel="import" href="../bower_components/polymerfire/firebase-query.html">
+
 <link rel="import" href="garcianavalon-blog-teaser.html">
 <link rel="import" href="garcianavalon-blog-detail.html">
 
@@ -36,6 +38,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
+    <firebase-query
+      id="query"
+      path="/posts"
+      data="{{posts}}">
+    </firebase-query>
+
     <app-route
       route="[[route]]"
       pattern="/:slug"
@@ -57,7 +65,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </div>
       <template is="dom-repeat" items="{{posts}}">
         <garcianavalon-blog-detail 
-          name=[[item.slug]] 
+          name=[[item.$key]] 
           post=[[item]]
           wide-layout="[[wideLayout]]">
         </garcianavalon-blog-detail>
@@ -73,23 +81,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'garcianavalon-blog',
       properties: {
         posts: {
-          type: Array,
-          value: [{
-            id: 1,
-            title: 'A sample post with a title long enough to see a line break',
-            teaser: 'You should read this post!',
-            slug: 'a-sample-post',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            publicationDate: new Date(),
-          },
-          {
-            id: 2,
-            title: 'Another post',
-            teaser: 'This one is cool too!',
-            slug: 'another-post',
-            content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',
-            publicationDate: new Date(),
-          }]
+          type: Object,
         },
 
         route: Object,
@@ -125,7 +117,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _getItemHref: function(item) {
         // By returning null when `itemId` is undefined, the href attribute won't be set and
         // the link will be disabled.
-        return item.slug ? [this.route.prefix, item.slug].join('/') : null;
+        return item.$key ? [this.route.prefix, item.$key].join('/') : null;
       },
 
     });
